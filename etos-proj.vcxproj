@@ -139,7 +139,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="etos-proj.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\system\Client.cpp" />
+    <ClCompile Include="src\system\Queue.cpp" />
+    <ClCompile Include="src\system\Server.cpp" />
+    <ClCompile Include="src\system\ServerStatusEnum.cpp" />
+    <ClCompile Include="src\system\System.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\system\Client.h" />
+    <ClInclude Include="src\system\Queue.h" />
+    <ClInclude Include="src\system\Server.h" />
+    <ClInclude Include="src\system\ServerStatusEnum.h" />
+    <ClInclude Include="src\system\System.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
