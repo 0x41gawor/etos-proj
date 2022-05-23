@@ -8,9 +8,9 @@ std::ostream& System::operator<<(std::ostream& os, ServerStatusEnum const& e)
 	switch (e)
 	{
 	case ServerStatusEnum::FREE:
-		str = "Arrival"; break;
+		str = "FREE"; break;
 	case ServerStatusEnum::BUSY:
-		str = "Processing"; break;
+		str = "BUSY"; break;
 	}
 	return os << str;
 }
