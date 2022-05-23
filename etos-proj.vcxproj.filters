@@ -13,42 +13,48 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\system">
+      <UniqueIdentifier>{2174a26a-25a1-45b6-938f-8acda95153df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\system">
+      <UniqueIdentifier>{6811b6b4-74a7-4dd0-8be1-79f18109b4bc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\system\Client.cpp">
+      <Filter>Source Files\system</Filter>
+    </ClCompile>
+    <ClCompile Include="src\system\Queue.cpp">
+      <Filter>Source Files\system</Filter>
+    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\system\Server.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\system</Filter>
     </ClCompile>
     <ClCompile Include="src\system\ServerStatusEnum.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\system\Client.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\system\Queue.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\system</Filter>
     </ClCompile>
     <ClCompile Include="src\system\System.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\system</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\system\Server.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\system\ServerStatusEnum.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\system\Client.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\system</Filter>
     </ClInclude>
     <ClInclude Include="src\system\Queue.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\system</Filter>
+    </ClInclude>
+    <ClInclude Include="src\system\Server.h">
+      <Filter>Header Files\system</Filter>
+    </ClInclude>
+    <ClInclude Include="src\system\ServerStatusEnum.h">
+      <Filter>Header Files\system</Filter>
     </ClInclude>
     <ClInclude Include="src\system\System.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\system</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
