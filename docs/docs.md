@@ -104,3 +104,22 @@ Diagramy aktywności UML prezentujące działanie programu oraz poszczególnych 
 ## Implementacja
 
 //TODO Tu pojawią się niebawem diagramy UML prezentujące klasy C++.
+
+## Zbierane statystki
+
+### Średni czas oczekiwania w kolejce (d)
+
+`delayAccumulated` - suma czasów oczekiwania klientów od 0 do `i`
+
+`delaysNumber` - liczba czasów oczekiwania
+
+`delayMean` -  średni czas oczekiwania w kolejce klientów
+
+### Liczba czasów w kolejce oszacowana w czasie ciągłym (q)
+
+![](img/1.png)
+
+### Wykorzystanie serwera obsługi (u)
+
+![](img/2.png)
+
