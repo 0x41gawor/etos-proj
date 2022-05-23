@@ -101,9 +101,35 @@ W pierwszej fazie implementujemy czyste M/M/1, dopiero potem będzie ono rozwini
 
 Diagramy aktywności UML prezentujące działanie programu oraz poszczególnych algorytmów.
 
+![](BPMN/img/main.png)
+
+### Algorytm Inicjujący
+
+![](BPMN/img/algorithm_init.png)
+
+### Algorytm czasowy
+
+![](BPMN/img/algorithm_time.png)
+
+### Algorytm zdarzeniowy
+
+![](BPMN/img/algorithm_event.png)
+
+#### ARRIVAL
+
+![](BPMN/img/algorithm_event_arrival.png)
+
+#### DEPARTURE
+
+![](BPMN/img/algorithm_event_departure.png)
+
+#### END
+
+![](BPMN/img/algorithm_event_end.png)
+
 ## Implementacja
 
-//TODO Tu pojawią się niebawem diagramy UML prezentujące klasy C++.
+![](UML/class_diagram.png)
 
 ## Zbierane statystki
 
