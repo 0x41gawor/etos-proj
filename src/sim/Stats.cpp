@@ -1,5 +1,7 @@
 #include "Stats.h"
 
+using namespace Sim;
+
 Sim::Stats::Stats() 
 	:d_accumulated{ 0 }, d_number{ 0 }, d_mean{ 0 },
 	q_rects{ 0 }, q_lastSimTime{ 0 }, q_value{ 0 },
@@ -8,22 +10,22 @@ Sim::Stats::Stats()
 	;;
 }
 
-void Sim::Stats::d()
+void Stats::d()
 {
 	//TODO implement
 }
 
-void Sim::Stats::q()
+void Stats::q()
 {
 	//TODO implement
 }
 
-void Sim::Stats::u()
+void Stats::u()
 {
 	//TODO implement
 }
 
-std::ostream& Sim::operator<<(std::ostream& os, Stats const& s)
+std::ostream& operator<<(std::ostream& os, Stats const& s)
 {
 	return os << "Stats{d_accumulated=" << s.d_accumulated
 		<< ", d_number=" << s.d_number

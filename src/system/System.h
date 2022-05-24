@@ -6,7 +6,6 @@
 #include <ostream>
 
 
-
 namespace System
 {
 	class System

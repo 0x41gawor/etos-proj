@@ -2,18 +2,18 @@
 
 using namespace System;
 
-System::Queue::Queue():clientsCount(0), isEmpty(true)
+Queue::Queue():clientsCount(0), isEmpty(true)
 {
 }
 
-void System::Queue::push(Client client)
+void Queue::push(Client client)
 {
 	implementation.push(client);
 	isEmpty = implementation.empty();
 	clientsCount = implementation.size();
 }
 
-Client* System::Queue::pop()
+Client* Queue::pop()
 {
 	if (!implementation.empty())
 	{
@@ -26,7 +26,7 @@ Client* System::Queue::pop()
 	return NULL;
 }
 
-void System::Queue::show()
+void Queue::show()
 {
 	std::queue<Client> copy = implementation;
 	std::cout << "Queue:[";

@@ -1,6 +1,8 @@
 #include "Client.h"
 
-System::Client::Client(double arrivalTime):arrivalTime(arrivalTime)
+using namespace System;
+
+Client::Client(double arrivalTime):arrivalTime(arrivalTime)
 {
 	;;
 }

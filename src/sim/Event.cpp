@@ -1,12 +1,13 @@
 #include "Event.h"
 
+using namespace Sim;
 
-Sim::Event::Event(double time, EventTypeEnum type) :time{ time }, type{ type }
+Event::Event(double time, EventTypeEnum type) :time{ time }, type{ type }
 {
 	;;
 }
 
-bool Sim::Event::operator<(const Event& e) const
+bool Event::operator<(const Event& e) const
 {
 	return time > e.time;
 }

@@ -1,10 +1,12 @@
 #include "RaportGenerator.h"
 
-Sim::RaportGenerator::RaportGenerator()
+using namespace Sim;
+
+RaportGenerator::RaportGenerator()
 {
 }
 
-void Sim::RaportGenerator::run(Stats)
+void RaportGenerator::run(Stats)
 {
 	//TODO implement
 }

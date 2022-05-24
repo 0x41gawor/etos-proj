@@ -2,12 +2,12 @@
 
 using namespace Sim;
 
-Sim::EventList::EventList()
+EventList::EventList()
 {
 	implementation = std::priority_queue<Event>();
 }
 
-Event* Sim::EventList::pop()
+Event* EventList::pop()
 {
 	if (!implementation.empty())
 	{
@@ -18,12 +18,12 @@ Event* Sim::EventList::pop()
 	return NULL;
 }
 
-void Sim::EventList::push(Event event)
+void EventList::push(Event event)
 {
 	implementation.push(event);
 }
 
-void Sim::EventList::show()
+void EventList::show()
 {
 	std::priority_queue<Event> copy = implementation;
 	std::cout << "EventList:[";
