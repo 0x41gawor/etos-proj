@@ -140,6 +140,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\sim\Event.cpp" />
+    <ClCompile Include="src\sim\EventTypeEnum.cpp" />
     <ClCompile Include="src\system\Client.cpp" />
     <ClCompile Include="src\system\Queue.cpp" />
     <ClCompile Include="src\system\Server.cpp" />
@@ -147,6 +149,8 @@
     <ClCompile Include="src\system\System.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\sim\Event.h" />
+    <ClInclude Include="src\sim\EventTypeEnum.h" />
     <ClInclude Include="src\system\Client.h" />
     <ClInclude Include="src\system\Queue.h" />
     <ClInclude Include="src\system\Server.h" />

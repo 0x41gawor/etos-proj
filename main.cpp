@@ -1,9 +1,10 @@
 #include <iostream>
 
 #include "src/system/System.h"
+#include "src/sim/Event.h"
 
 int main()
 {
-    System::System system;
-    std::cout << system;
+    Sim::Event event = Sim::Event(0.4, Sim::EventTypeEnum::ARRIVAL);
+    std::cout << event;
 }
