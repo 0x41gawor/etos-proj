@@ -72,7 +72,7 @@
     <ClCompile Include="src\algorithm\Time.cpp">
       <Filter>Source Files\algorithm</Filter>
     </ClCompile>
-    <ClCompile Include="src\algorithm\Event.cpp">
+    <ClCompile Include="src\algorithm\Events.cpp">
       <Filter>Source Files\algorithm</Filter>
     </ClCompile>
     <ClCompile Include="src\algorithm\LibArrival.cpp">
@@ -83,6 +83,9 @@
     </ClCompile>
     <ClCompile Include="src\algorithm\ILibArrival.cpp">
       <Filter>Source Files\algorithm</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Program.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -122,7 +125,7 @@
     <ClInclude Include="src\algorithm\Time.h">
       <Filter>Header Files\algorithm</Filter>
     </ClInclude>
-    <ClInclude Include="src\algorithm\Event.h">
+    <ClInclude Include="src\algorithm\Events.h">
       <Filter>Header Files\algorithm</Filter>
     </ClInclude>
     <ClInclude Include="src\algorithm\LibArrivalExp.h">
@@ -136,6 +139,9 @@
     </ClInclude>
     <ClInclude Include="src\algorithm\ILibArrival.h">
       <Filter>Header Files\algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Program.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
