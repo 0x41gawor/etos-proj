@@ -1,15 +1,17 @@
 #pragma once
-#include <ostream>
 
 #include "ServerStatusEnum.h"
+
+#include <ostream>
+
 
 namespace System
 {
 	class Server
 	{
-	public:
+	public:																			// < M E M B E R S >
 		ServerStatusEnum status;
-
+	public:																			// < M E T H O D S >
 		Server();
 	};
 

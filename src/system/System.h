@@ -1,17 +1,19 @@
 #pragma once
-#include <ostream>
 
 #include "Server.h"
 #include "Queue.h"
+
+#include <ostream>
+
 
 namespace System
 {
 	class System
 	{
-	public:
+	public:																			// < M E M B E R S >
 		Server server;
 		Queue queue;
-	public:
+	public:																			// < M E T H O D S >
 		System();
 		void init();
 	};

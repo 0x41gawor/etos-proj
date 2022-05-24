@@ -19,6 +19,12 @@
     <Filter Include="Source Files\system">
       <UniqueIdentifier>{6811b6b4-74a7-4dd0-8be1-79f18109b4bc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\sim">
+      <UniqueIdentifier>{0e0745fe-1185-452b-98a5-fdd10bc7aff1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\sim">
+      <UniqueIdentifier>{07255aac-7577-4a7b-8a85-fd7999a768e7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\system\Client.cpp">
@@ -39,6 +45,21 @@
     <ClCompile Include="src\system\System.cpp">
       <Filter>Source Files\system</Filter>
     </ClCompile>
+    <ClCompile Include="src\sim\EventTypeEnum.cpp">
+      <Filter>Source Files\sim</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sim\Event.cpp">
+      <Filter>Source Files\sim</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sim\EventList.cpp">
+      <Filter>Source Files\sim</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sim\Stats.cpp">
+      <Filter>Source Files\sim</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sim\RaportGenerator.cpp">
+      <Filter>Source Files\sim</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\system\Client.h">
@@ -55,6 +76,21 @@
     </ClInclude>
     <ClInclude Include="src\system\System.h">
       <Filter>Header Files\system</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sim\EventTypeEnum.h">
+      <Filter>Header Files\sim</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sim\Event.h">
+      <Filter>Header Files\sim</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sim\EventList.h">
+      <Filter>Header Files\sim</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sim\Stats.h">
+      <Filter>Header Files\sim</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sim\RaportGenerator.h">
+      <Filter>Header Files\sim</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

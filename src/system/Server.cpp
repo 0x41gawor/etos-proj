@@ -1,8 +1,8 @@
 #include "Server.h"
 
+using namespace System;
 
-
-System::Server::Server()
+Server::Server()
 {
 	status = ServerStatusEnum::FREE;
 }
