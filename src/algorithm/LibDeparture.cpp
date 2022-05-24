@@ -4,6 +4,12 @@ using namespace Algorithm;
 
 double LibDeparture::run()
 {
-	// TODO implement
-	return 0.0;
+	double RND;
+
+	do
+	{
+		RND = static_cast<double>(rand()) / RAND_MAX;
+	} while (RND == 0);
+
+	return -MEAN * log(RND);
 }
