@@ -4,10 +4,14 @@
 
 namespace Algorithm
 {
-	class Time
+	class Event
 	{
 	public:																			// < M E T H O D S >
-		Sim::Event* run();
+		bool run(Sim::Event);
+	private:
+		bool arrival();
+		bool departure();
+		bool end();
 	};
-}
 
+}

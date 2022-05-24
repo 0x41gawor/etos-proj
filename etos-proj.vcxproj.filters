@@ -72,6 +72,9 @@
     <ClCompile Include="src\algorithm\Time.cpp">
       <Filter>Source Files\algorithm</Filter>
     </ClCompile>
+    <ClCompile Include="src\algorithm\Event.cpp">
+      <Filter>Source Files\algorithm</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\system\Client.h">
@@ -108,6 +111,9 @@
       <Filter>Header Files\algorithm</Filter>
     </ClInclude>
     <ClInclude Include="src\algorithm\Time.h">
+      <Filter>Header Files\algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="src\algorithm\Event.h">
       <Filter>Header Files\algorithm</Filter>
     </ClInclude>
   </ItemGroup>

@@ -4,7 +4,7 @@ namespace Algorithm
 {
 	class Init
 	{
-	public:
+	public:																			// < M E T H O D S >
 		void run();
 	};
 }
