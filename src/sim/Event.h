@@ -6,10 +6,10 @@ namespace Sim
 {
 	class Event
 	{
-	public:
+	public:																			// < M E M B E R S >
 		double time;
 		EventTypeEnum type;
-
+	public:																			// < M E T H O D S >
 		Event(double time, EventTypeEnum type);
 
 		bool operator<(const Event& e) const;

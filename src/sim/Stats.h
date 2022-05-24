@@ -6,7 +6,7 @@ namespace Sim
 {
 	class Stats
 	{
-	public:
+	public:																			// < M E M B E R S >
 		double d_accumulated;
 		double d_number;
 		double d_mean;
@@ -18,7 +18,7 @@ namespace Sim
 		double u_rects;
 		double u_lastSimTime;
 		double u_value;
-	public:
+	public:																			// < M E T H O D S >
 		Stats();
 		void d(); //params will be decided later
 		void q(); //params will be decided later

@@ -7,9 +7,9 @@ namespace System
 {
 	class Client
 	{
-	public:
+	public:																			// < M E M B E R S >
 		double arrivalTime;
-
+	public:																			// < M E T H O D S >
 		Client(double arrivalTime);
 	};
 

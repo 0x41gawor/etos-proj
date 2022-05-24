@@ -9,10 +9,9 @@ namespace Sim
 {
 	class EventList
 	{
-	private:
+	private:																		// < M E M B E R S >
 		std::priority_queue<Event> implementation;
-
-	public:
+	public:																			// < M E T H O D S >
 		EventList();
 		Event* pop();
 		void push(Event e);

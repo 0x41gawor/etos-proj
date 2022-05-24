@@ -10,12 +10,12 @@ namespace System
 {
 	class Queue
 	{
-	private:
+	private:																		// < M E M B E R S >
 		std::queue<Client> implementation;
 	public:
 		int clientsCount;
 		bool isEmpty;
-
+	public:																			// < M E T H O D S >
 		Queue();
 		void push(Client client);
 		Client* pop();

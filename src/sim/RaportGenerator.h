@@ -6,7 +6,7 @@ namespace Sim
 {
 	class RaportGenerator
 	{
-	public:
+	public:																			// < M E M B E R S>
 		RaportGenerator();
 		void run(Stats);
 	};
