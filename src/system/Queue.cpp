@@ -13,7 +13,7 @@ void System::Queue::push(Client client)
 	clientsCount = implementation.size();
 }
 
-Client System::Queue::pop()
+Client* System::Queue::pop()
 {
 	if (!implementation.empty())
 	{
@@ -21,7 +21,7 @@ Client System::Queue::pop()
 		implementation.pop();
 		isEmpty = implementation.empty();
 		clientsCount = implementation.size();
-		return client;
+		return &client;
 	}
 	return NULL;
 }

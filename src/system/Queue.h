@@ -17,7 +17,7 @@ namespace System
 
 		Queue();
 		void push(Client client);
-		Client pop();
+		Client* pop();
 		void show();
 	};
 

@@ -51,6 +51,9 @@
     <ClCompile Include="src\sim\Event.cpp">
       <Filter>Source Files\sim</Filter>
     </ClCompile>
+    <ClCompile Include="src\sim\EventList.cpp">
+      <Filter>Source Files\sim</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\system\Client.h">
@@ -72,6 +75,9 @@
       <Filter>Header Files\sim</Filter>
     </ClInclude>
     <ClInclude Include="src\sim\Event.h">
+      <Filter>Header Files\sim</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sim\EventList.h">
       <Filter>Header Files\sim</Filter>
     </ClInclude>
   </ItemGroup>
