@@ -9,6 +9,8 @@ System::Queue::Queue():clientsCount(0), isEmpty(true)
 void System::Queue::push(Client client)
 {
 	implementation.push(client);
+	isEmpty = implementation.empty();
+	clientsCount = implementation.size();
 }
 
 Client System::Queue::pop()
@@ -17,6 +19,8 @@ Client System::Queue::pop()
 	{
 		Client client = implementation.front();
 		implementation.pop();
+		isEmpty = implementation.empty();
+		clientsCount = implementation.size();
 		return client;
 	}
 	return NULL;
