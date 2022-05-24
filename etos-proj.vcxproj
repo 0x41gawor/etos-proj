@@ -143,6 +143,7 @@
     <ClCompile Include="src\sim\Event.cpp" />
     <ClCompile Include="src\sim\EventList.cpp" />
     <ClCompile Include="src\sim\EventTypeEnum.cpp" />
+    <ClCompile Include="src\sim\Stats.cpp" />
     <ClCompile Include="src\system\Client.cpp" />
     <ClCompile Include="src\system\Queue.cpp" />
     <ClCompile Include="src\system\Server.cpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="src\sim\Event.h" />
     <ClInclude Include="src\sim\EventList.h" />
     <ClInclude Include="src\sim\EventTypeEnum.h" />
+    <ClInclude Include="src\sim\Stats.h" />
     <ClInclude Include="src\system\Client.h" />
     <ClInclude Include="src\system\Queue.h" />
     <ClInclude Include="src\system\Server.h" />
