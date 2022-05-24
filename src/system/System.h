@@ -1,8 +1,11 @@
 #pragma once
-#include <ostream>
 
 #include "Server.h"
 #include "Queue.h"
+
+#include <ostream>
+
+
 
 namespace System
 {

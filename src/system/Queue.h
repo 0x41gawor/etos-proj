@@ -1,9 +1,10 @@
 #pragma once
+
+#include "Client.h"
+
 #include <queue>
 #include <iostream>
 #include <ostream>
-
-#include "Client.h"
 
 namespace System
 {

@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Stats.h"
 
 namespace Sim

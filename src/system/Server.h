@@ -1,7 +1,9 @@
 #pragma once
-#include <ostream>
 
 #include "ServerStatusEnum.h"
+
+#include <ostream>
+
 
 namespace System
 {
