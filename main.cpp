@@ -6,8 +6,5 @@
 
 int main()
 {
-    Sim::Stats stats;
-    std::cout << stats;
-
-    
+   
 }

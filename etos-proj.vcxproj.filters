@@ -57,6 +57,9 @@
     <ClCompile Include="src\sim\Stats.cpp">
       <Filter>Source Files\sim</Filter>
     </ClCompile>
+    <ClCompile Include="src\sim\RaportGenerator.cpp">
+      <Filter>Source Files\sim</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\system\Client.h">
@@ -84,6 +87,9 @@
       <Filter>Header Files\sim</Filter>
     </ClInclude>
     <ClInclude Include="src\sim\Stats.h">
+      <Filter>Header Files\sim</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sim\RaportGenerator.h">
       <Filter>Header Files\sim</Filter>
     </ClInclude>
   </ItemGroup>
