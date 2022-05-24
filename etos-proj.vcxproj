@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\algorithm\Event.cpp" />
+    <ClCompile Include="src\algorithm\ILibArrival.cpp" />
     <ClCompile Include="src\algorithm\Init.cpp" />
     <ClCompile Include="src\algorithm\LibArrival.cpp" />
     <ClCompile Include="src\algorithm\LibDeparture.cpp" />
@@ -158,9 +159,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\algorithm\Event.h" />
+    <ClInclude Include="src\algorithm\ILibArrival.h" />
+    <ClInclude Include="src\algorithm\ILibDeparture.h" />
     <ClInclude Include="src\algorithm\Init.h" />
-    <ClInclude Include="src\algorithm\LibArrival.h" />
-    <ClInclude Include="src\algorithm\LibDeparture.h" />
+    <ClInclude Include="src\algorithm\LibArrivalExp.h" />
+    <ClInclude Include="src\algorithm\LibDepartureExp.h" />
     <ClInclude Include="src\algorithm\Time.h" />
     <ClInclude Include="src\sim\Event.h" />
     <ClInclude Include="src\sim\EventList.h" />

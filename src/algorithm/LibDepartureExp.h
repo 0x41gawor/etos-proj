@@ -1,16 +1,18 @@
 #pragma once
 
+#include "ILibDeparture.h"
+
 #include <stdlib.h>
 #include <cmath>
 
 namespace Algorithm
 {
-	class LibArrival
+	class LibDepartureExp : ILibDeparture
 	{
 	public:
-		double MEAN = 10.0;
+		double MEAN = 7.0;
 	public:
 		double run();
 	};
-}
 
+}

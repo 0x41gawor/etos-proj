@@ -1,8 +1,8 @@
-#include "LibDeparture.h"
+#include "LibDepartureExp.h"
 
 using namespace Algorithm;
 
-double LibDeparture::run()
+double LibDepartureExp::run()
 {
 	double RND;
 

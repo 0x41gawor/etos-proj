@@ -1,8 +1,8 @@
-#include "LibArrival.h"
+#include "LibArrivalExp.h"
 
 using namespace Algorithm;
 
-double LibArrival::run()
+double LibArrivalExp::run()
 {
 	double RND;
 

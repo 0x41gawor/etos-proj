@@ -81,6 +81,9 @@
     <ClCompile Include="src\algorithm\LibDeparture.cpp">
       <Filter>Source Files\algorithm</Filter>
     </ClCompile>
+    <ClCompile Include="src\algorithm\ILibArrival.cpp">
+      <Filter>Source Files\algorithm</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\system\Client.h">
@@ -122,10 +125,16 @@
     <ClInclude Include="src\algorithm\Event.h">
       <Filter>Header Files\algorithm</Filter>
     </ClInclude>
-    <ClInclude Include="src\algorithm\LibArrival.h">
+    <ClInclude Include="src\algorithm\LibArrivalExp.h">
       <Filter>Header Files\algorithm</Filter>
     </ClInclude>
-    <ClInclude Include="src\algorithm\LibDeparture.h">
+    <ClInclude Include="src\algorithm\LibDepartureExp.h">
+      <Filter>Header Files\algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="src\algorithm\ILibDeparture.h">
+      <Filter>Header Files\algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="src\algorithm\ILibArrival.h">
       <Filter>Header Files\algorithm</Filter>
     </ClInclude>
   </ItemGroup>
