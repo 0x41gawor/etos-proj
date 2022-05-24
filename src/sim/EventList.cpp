@@ -1,5 +1,4 @@
 #include "EventList.h"
-#include <iostream>
 
 using namespace Sim;
 

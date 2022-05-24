@@ -3,6 +3,7 @@
 #include "Event.h"
 
 #include <queue>
+#include <iostream>
 
 namespace Sim
 {
