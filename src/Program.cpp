@@ -27,6 +27,7 @@ void Program::run()
 	eventList.show();
 	std::cout << "Sredni czas oczekiwania w kolejce: " << stats.d_mean << "\n";
 	std::cout << "Wykorzystanie serwera obslugi: " << stats.u_value << "\n";
+	std::cout << "Liczba czasow w kolejce oszacowana w czasie ciaglym: " << stats.u_value << "\n";
 	// oblicz interesuj¹ce estymacje
 	// sporz¹dŸ raport
 	raportGenerator.run(stats);

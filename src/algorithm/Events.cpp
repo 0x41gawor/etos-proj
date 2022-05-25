@@ -32,6 +32,8 @@ bool Events::arrival()
 	{
 		case System::ServerStatusEnum::BUSY:
 		{
+			// zbierz statystki
+			stats->q(*simTime, system->queue.clientsCount);
 			// dodaj 1 do liczby klientów w kolejce
 			system->queue.push(System::Client(*simTime));
 			break;
@@ -65,6 +67,8 @@ bool Events::departure()
 		}
 		case false:
 		{
+			// zbierz statystki
+			stats->q(*simTime, system->queue.clientsCount);
 			// odejmij 1 od liczby klientów w kolejce
 			System::Client client = *system->queue.pop();
 			// oblicz opóŸnienie klienta i zbierz statystki //dodaj jeden do licznika opóŸnieñ klientów

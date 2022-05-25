@@ -24,7 +24,7 @@ namespace Sim
 	public:																			// < M E T H O D S >
 		Stats();
 		void d(double delay); 
-		void q(); //params will be decided later
+		void q(double simTime, int); 
 		void u(double simTime, System::ServerStatusEnum status); 
 	};
 

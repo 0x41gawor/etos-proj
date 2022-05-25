@@ -18,14 +18,19 @@ void Stats::d(double delay)
 	d_mean = d_accumulated / d_number;
 }
 
-void Stats::q()
+void Stats::q(double simTime, int clientsCount)
 {
-	//TODO implement
+	double timeInterval = simTime - q_lastSimTime;
+	q_lastSimTime = simTime;
+	double rect = timeInterval * clientsCount;
+	q_rects += rect;
+	q_value = q_rects / simTime;
 }
 
 void Stats::u(double simTime, System::ServerStatusEnum status)
 {
 	double timeInterval = simTime - u_lastSimTime;
+	u_lastSimTime = simTime;
 	double rect = timeInterval * static_cast<double>(status);
 	u_rects += rect;
 	u_value = u_rects / simTime;
