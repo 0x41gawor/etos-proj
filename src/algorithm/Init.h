@@ -9,7 +9,7 @@ namespace Algorithm
 	class Init
 	{
 	public:																			// < M E T H O D S >
-		void run(Sim::EventList* eventList);
+		void run(Sim::EventList* eventList, double* simTime);
 	};
 }
 

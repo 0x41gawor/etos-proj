@@ -2,9 +2,15 @@
 
 using namespace Algorithm;
 
+Algorithm::Time::Time(Sim::EventList* eventList, double* simTime) :eventList{ eventList }, simTime{simTime}
+{
+	
+}
+
 Sim::Event Time::run()
 {
-	Sim::Event event = Sim::Event(2.0, Sim::EventTypeEnum::END);
+	Sim::Event event = *eventList->pop();
+	*simTime = event.time;
 
 	return event;
 }
