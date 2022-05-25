@@ -34,13 +34,15 @@ bool Events::arrival()
 		{
 			// dodaj 1 do liczby klientów w kolejce
 			system->queue.push(System::Client(*simTime));
+			break;
 		}
 		case System::ServerStatusEnum::FREE:
 		{
 			// ustaw stan serwera na zajêty
 			system->server.status = System::ServerStatusEnum::BUSY;
 			//zaplanuj zdarzenie zakonczenia obslugi klienta
-			eventList->push(Sim::Event(* simTime + libDeparture.run(), Sim::EventTypeEnum::DEPARTURE));
+			eventList->push(Sim::Event(*simTime + libDeparture.run(), Sim::EventTypeEnum::DEPARTURE));
+			break;
 		}
 	}
 	return false;
@@ -48,7 +50,23 @@ bool Events::arrival()
 
 bool Events::departure()
 {
-	//TODO implement
+	switch (system->queue.isEmpty)
+	{
+		case true:
+		{
+			// ustaw stan serwera na wolny
+			system->server.status = System::ServerStatusEnum::FREE;
+			break;
+		}
+		case false:
+		{
+			// odejmij 1 od liczby klientów w kolejce
+			System::Client client = *system->queue.pop();
+			// zaplanuj zdarzenie zakoñczenia obs³ugi dla nastêpnego klienta
+			eventList->push(Sim::Event(*simTime + libDeparture.run(), Sim::EventTypeEnum::DEPARTURE));
+			// przesun ka¿dego klienta o jedno miejsce --> w FIFO tego nie potrzebujemy
+		}
+	}
 	return false;
 }
 
