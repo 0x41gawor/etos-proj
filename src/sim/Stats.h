@@ -1,6 +1,9 @@
 #pragma once
 
+#include "../system/ServerStatusEnum.h"
+
 #include <ostream>
+#include <iostream>
 
 namespace Sim
 {
@@ -20,9 +23,9 @@ namespace Sim
 		double u_value;
 	public:																			// < M E T H O D S >
 		Stats();
-		void d(); //params will be decided later
-		void q(); //params will be decided later
-		void u(); //params will be decided later
+		void d(double delay); 
+		void q(double simTime, int); 
+		void u(double simTime, System::ServerStatusEnum status); 
 	};
 
 	std::ostream& operator<<(std::ostream& os, Stats const& e);

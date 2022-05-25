@@ -1,5 +1,6 @@
 #include "Stats.h"
 
+
 using namespace Sim;
 
 Sim::Stats::Stats() 
@@ -10,19 +11,30 @@ Sim::Stats::Stats()
 	;;
 }
 
-void Stats::d()
+void Stats::d(double delay)
 {
-	//TODO implement
+	d_accumulated += delay;
+	d_number++;
+	d_mean = d_accumulated / d_number;
 }
 
-void Stats::q()
+void Stats::q(double simTime, int clientsCount)
 {
-	//TODO implement
+	double timeInterval = simTime - q_lastSimTime;
+	q_lastSimTime = simTime;
+	double rect = timeInterval * clientsCount;
+	q_rects += rect;
+	q_value = q_rects / simTime;
 }
 
-void Stats::u()
+void Stats::u(double simTime, System::ServerStatusEnum status)
 {
-	//TODO implement
+	double timeInterval = simTime - u_lastSimTime;
+	u_lastSimTime = simTime;
+	double rect = timeInterval * static_cast<double>(status);
+	u_rects += rect;
+	u_value = u_rects / simTime;
+	std::cout << "\n" << u_value << "\n";
 }
 
 std::ostream& operator<<(std::ostream& os, Stats const& s)
