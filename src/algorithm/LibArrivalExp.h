@@ -7,10 +7,10 @@
 
 namespace Algorithm
 {
-	class LibArrivalExp : ILibArrival
+	class LibArrivalExp : public ILibArrival
 	{
 	public:
-		double MEAN = 10.0;
+		double MEAN = 2.0;
 	public:
 		double run();
 	};
