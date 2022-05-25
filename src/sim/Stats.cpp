@@ -34,7 +34,6 @@ void Stats::u(double simTime, System::ServerStatusEnum status)
 	double rect = timeInterval * static_cast<double>(status);
 	u_rects += rect;
 	u_value = u_rects / simTime;
-	std::cout << "\n" << u_value << "\n";
 }
 
 std::ostream& operator<<(std::ostream& os, Stats const& s)

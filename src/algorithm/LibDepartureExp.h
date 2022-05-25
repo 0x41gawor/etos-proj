@@ -10,7 +10,7 @@ namespace Algorithm
 	class LibDepartureExp : public ILibDeparture
 	{
 	public:
-		double MEAN = 5.0;
+		double MEAN = 2.0;
 	public:
 		double run();
 	};

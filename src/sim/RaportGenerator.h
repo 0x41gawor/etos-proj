@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Stats.h"
+#include "../system/System.h"
 
 namespace Sim
 {
@@ -8,7 +9,7 @@ namespace Sim
 	{
 	public:																			// < M E M B E R S>
 		RaportGenerator();
-		void run(Stats);
+		void run(Stats stats, System::System system, double simTime);
 	};
 }
 
