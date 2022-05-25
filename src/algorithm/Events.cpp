@@ -2,8 +2,8 @@
 
 using namespace Algorithm;
 
-Algorithm::Events::Events(Sim::EventList* eventList, double* simTime, System::System* system) 
-	:eventList{ eventList }, simTime{ simTime }, system {system},
+Algorithm::Events::Events(Sim::EventList* eventList, double* simTime, System::System* system, Sim::Stats* stats)
+	:eventList{ eventList }, simTime{ simTime }, system {system}, stats { stats },
 	libArrival{}, libDeparture{}
 {
 	
@@ -38,6 +38,9 @@ bool Events::arrival()
 		}
 		case System::ServerStatusEnum::FREE:
 		{
+			// ustaw opóŸnienie=0 dla tego klienta i zbierz statystki
+			stats->d(0.0);
+			stats->u(*simTime, system->server.status);
 			// ustaw stan serwera na zajêty
 			system->server.status = System::ServerStatusEnum::BUSY;
 			//zaplanuj zdarzenie zakonczenia obslugi klienta
@@ -54,6 +57,8 @@ bool Events::departure()
 	{
 		case true:
 		{
+			// zbierz statystki
+			stats->u(*simTime, system->server.status);
 			// ustaw stan serwera na wolny
 			system->server.status = System::ServerStatusEnum::FREE;
 			break;
@@ -62,6 +67,8 @@ bool Events::departure()
 		{
 			// odejmij 1 od liczby klientów w kolejce
 			System::Client client = *system->queue.pop();
+			// oblicz opóŸnienie klienta i zbierz statystki //dodaj jeden do licznika opóŸnieñ klientów
+			stats->d(*simTime - client.arrivalTime);
 			// zaplanuj zdarzenie zakoñczenia obs³ugi dla nastêpnego klienta
 			eventList->push(Sim::Event(*simTime + libDeparture.run(), Sim::EventTypeEnum::DEPARTURE));
 			// przesun ka¿dego klienta o jedno miejsce --> w FIFO tego nie potrzebujemy
@@ -72,5 +79,8 @@ bool Events::departure()
 
 bool Events::end()
 {
+	// tu trzeba dodaæ coœ co pozwoli dokoñczyæ pobranie eventu Departure z listy zdarzeñ, poniewa¿ ostatnia statystyka sie nie nalicza
+	// po prostu to jest zadanie RaportGenerator ma on dostêp do statystk, wiec na podstawie lastSimTime i obecnego stanu serwera doliczy koniec
+	// TODO
 	return true;
 }

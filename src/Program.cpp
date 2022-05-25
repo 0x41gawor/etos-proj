@@ -1,6 +1,6 @@
 #include "Program.h"
 
-Program::Program() : simTime{0.0}, algorithmTime{&eventList, &simTime}, algorithmEvent{&eventList, &simTime, &system}
+Program::Program() : simTime{0.0}, algorithmTime{&eventList, &simTime}, algorithmEvent{&eventList, &simTime, &system, &stats}
 {
 	system = System::System();
 	eventList = Sim::EventList();
@@ -25,6 +25,8 @@ void Program::run()
 		end = algorithmEvent.run(event);
 	}
 	eventList.show();
+	std::cout << "Sredni czas oczekiwania w kolejce: " << stats.d_mean << "\n";
+	std::cout << "Wykorzystanie serwera obslugi: " << stats.u_value << "\n";
 	// oblicz interesuj¹ce estymacje
 	// sporz¹dŸ raport
 	raportGenerator.run(stats);
