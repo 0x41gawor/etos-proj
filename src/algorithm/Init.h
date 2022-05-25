@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../sim/EventList.h"
+
 #include <time.h>
 
 namespace Algorithm
@@ -7,7 +9,7 @@ namespace Algorithm
 	class Init
 	{
 	public:																			// < M E T H O D S >
-		void run();
+		void run(Sim::EventList* eventList);
 	};
 }
 

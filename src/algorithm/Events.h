@@ -4,7 +4,7 @@
 
 namespace Algorithm
 {
-	class Event
+	class Events
 	{
 	public:																			// < M E T H O D S >
 		bool run(Sim::Event);

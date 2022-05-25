@@ -2,8 +2,9 @@
 
 using namespace Algorithm;
 
-Sim::Event* Time::run()
+Sim::Event Time::run()
 {
-	//TODO implement
-	return NULL;
+	Sim::Event event = Sim::Event(2.0, Sim::EventTypeEnum::END);
+
+	return event;
 }
