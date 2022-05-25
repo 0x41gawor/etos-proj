@@ -2,9 +2,17 @@
 
 using namespace Algorithm;
 
+Algorithm::Time::Time(Sim::EventList* eventList, double* simTime) :eventList{ eventList }, simTime{simTime}
+{
+	
+}
+
 Sim::Event Time::run()
 {
-	Sim::Event event = Sim::Event(2.0, Sim::EventTypeEnum::END);
+	// okreœl kolejny typ zdarzenia
+	Sim::Event event = *eventList->pop();
+	// zwieksz czas zegara
+	*simTime = event.time;
 
 	return event;
 }

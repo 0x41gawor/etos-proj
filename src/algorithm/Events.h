@@ -1,12 +1,24 @@
 #pragma once
 
-#include "../sim/Event.h"
+#include "../sim/EventList.h"
+#include "../system/System.h"
+#include "LibArrivalExp.h"
+#include "LibDepartureExp.h"
 
 namespace Algorithm
 {
 	class Events
 	{
+	private:																		// < M E M B E R S >
+		Sim::EventList* eventList;		// Algorithm::Events needs constant reference to eventList to plan out new events of type
+		double* simTime;				// Algorithm::Events needs constant reference to simTime to push new events
+		System::System* system;			// Algorithm::Events needs constant reference to system (server and queue)
+		LibArrivalExp libArrival;
+		LibDepartureExp libDeparture;
+		
+		
 	public:																			// < M E T H O D S >
+		Events(Sim::EventList* eventList, double* simTime, System::System* system);
 		bool run(Sim::Event);
 	private:
 		bool arrival();

@@ -3,10 +3,12 @@
 
 using namespace Algorithm;
 
-void Init::run(Sim::EventList* eventList)
+void Init::run(Sim::EventList* eventList, double* simTime)
 {
-	//TODO implement
+	// inicjalizacja stanu systemu i liczników statystyk
 	srand(static_cast<unsigned int>(time(0)));
-
-	eventList->push(Sim::Event(2.0, Sim::EventTypeEnum::END));
+	*simTime = 0.0;
+	// inicjalizacja listy zdarzeñ
+	eventList->push(Sim::Event(2.0, Sim::EventTypeEnum::ARRIVAL));
+	eventList->push(Sim::Event(100.0, Sim::EventTypeEnum::END));
 }
