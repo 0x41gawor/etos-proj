@@ -1,5 +1,8 @@
 # etos-proj
 
-Folder `zeszyt` to moje notatki z wykładów odbywających się po pierwszym kolokwium. Jest tam teoria przekazana na wykładach.
+Dokumentacja projektu znajduje się w [docs](docs/docs.md).
 
-Plik `docs.md` to opis implementacyjny naszej symulacji numerycznej.
+
+
+Pierwsza część (M/M/1) jest Halina Tarasiuk approved :smile:
+
