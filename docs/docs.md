@@ -37,9 +37,9 @@ W pierwszej fazie implementujemy czyste M/M/1, dopiero potem będzie ono rozwini
 
 > U nas tym zbiorem zmiennych jest:
 >
-> - `Server_Status` - określający czy serwer jest zajęty czy nie (`BUSY` lub `FREE`). Konieczny do określenia czy przybywający klient może przejść natychmiast do obsługi, czy musi poczekać
-> - `Clients_Number_In_Queue` - określający liczbę klientów w kolejce oczekujących na obsługę. Po zakończeniu obsługi klienta przez serwer, pozwala stwierdzić czy serwer przechodzi w stan zajęty czy wolny
-> - `Client::Arrival_Time` - czas przybycia każdego klienta. Pozwala obliczyć czas oczekiwania na obsłużenie przez serwer.
+> - `Server.status` - określający czy serwer jest zajęty czy nie (`BUSY` lub `FREE`). Konieczny do określenia czy przybywający klient może przejść natychmiast do obsługi, czy musi poczekać
+> - `Queue.clientsCount` - określający liczbę klientów w kolejce oczekujących na obsługę. Po zakończeniu obsługi klienta przez serwer, pozwala stwierdzić czy serwer przechodzi w stan zajęty czy wolny
+> - `Client.arrivalTime` - czas przybycia każdego klienta. Pozwala obliczyć czas oczekiwania na obsłużenie przez serwer.
 
 **Zdarzenia** - chwilowe działanie, które MOŻE spowodować zmianę *stanu systemu*.
 
@@ -47,38 +47,26 @@ W pierwszej fazie implementujemy czyste M/M/1, dopiero potem będzie ono rozwini
 >
 > - `ARRIVAL` - przybycie klienta do systemu.
 >   - Powoduje zmianę stanu systemu
->     - albo zmiana `Server_Status` z `FREE` na `BUSY`
->     - albo inkrementacja `Clients_Number_In_Queue`
+>     - albo zmiana `Server.status` z `FREE` na `BUSY`
+>     - albo inkrementacja `Queue.clientsCount`
 > - `DEPARTURE` - zakończenie obsługi klienta przez serwer i opuszczenie systemu
 >   - Powoduje zmianę stan systemu
->     - zmiana `Server_Status` na `FREE`
+>     - zmiana `Server.status` na `FREE`
 >
 > *Możliwe dodanie typu zdarzenia `END`, powodującego zatrzymanie symulacji (nie zmienia stanu systemu).
 
-## Moduły symulacji
+### Moduły symulacji
 
 - stan systemu 
 
   - Zbiór zmiennych koniecznych do opisania systemu w danej chwili czasowej.
-
-  - `Server_Status`, `Clients_Number_In_Queue`, `Client::Arrival_Time`
-
-  - > Widzę tu kandydatów na klasy:
-    >
-    > System::Server
-    >
-    > System::Queue
-    >
-    > System::Client (co prawda klient nie stanowi stałego elementu sytemu, ale uznajemy, że gdy się w nim pojawia takim elementem zostaje).
-    >
-    > po których rozejdą się te zmienne opisujące stan systemu
-
+- `System::Server::status`, `System::Queue::clientsCount`, `System::Client::arrivalTime`
 - zegar symulacji
   - bieżący czas symulacji
-  - `SIM_TIME`
+  - `simTime`
 - lista zdarzeń
   - lista zawierająca czas wystąpienia kolejnego zdarzenia w systemie dla każdego z typów zdarzeń
-  - `EVENT_LIST`
+  - `Sim::EventList`
 - algorytm inicjalizujący
   - inicjalizuje model w chwili `zegar symulacji` = 0
   - `Algorithm::init`
@@ -89,51 +77,53 @@ W pierwszej fazie implementujemy czyste M/M/1, dopiero potem będzie ono rozwini
   - uaktualnia stan systemu, kiedy wystąpi kolejne zdarzenie, planuje kolejne zdarzenie
   - `Algorithm::EventArrival`,  `Algorithm::EventDeparture`
 - algorytm bibliotek
-  - zbiór bibliotek do generowania zmiennych losowych (A i S)
+  - zbiór bibliotek do generowania zmiennych losowych (odstępów czasowych między przybywającymi klientami, czasów obsługi klientów przez serwer)
   - `Algorithm::LibArrival`, `Algorithm::LibDeparture`
 - generator raportów
   - oblicza charakterystyki systemu na podstawie zmierzonych wartości i generuje raport po zakończeniu symulacji
-  - `RaportGenerator`
+  - `Sim::RaportGenerator`
+    - Okazuje, się że statystki trzeba zbierać podczas działania symulacji non-stop (nie tylko na koniec), więc wydzielono do tego klasę `Sim::Stats`
 - program główny
   - wywołuje to wszystko
+  - `Program`
 
-## Program główny
+### Program główny
 
 Diagramy aktywności UML prezentujące działanie programu oraz poszczególnych algorytmów.
 
 ![](BPMN/img/main.png)
 
-### Algorytm Inicjujący
+#### Algorytm Inicjujący
 
 ![](BPMN/img/algorithm_init.png)
 
-### Algorytm czasowy
+#### Algorytm czasowy
 
 ![](BPMN/img/algorithm_time.png)
 
-### Algorytm zdarzeniowy
+#### Algorytm zdarzeniowy
 
 ![](BPMN/img/algorithm_event.png)
 
-#### ARRIVAL
+##### ARRIVAL
 
 ![](BPMN/img/algorithm_event_arrival.png)
 
-#### DEPARTURE
+##### DEPARTURE
 
 ![](BPMN/img/algorithm_event_departure.png)
 
-#### END
+##### END
 
 ![](BPMN/img/algorithm_event_end.png)
 
-## Implementacja
+### Implementacja
 
 ![](UML/class_diagram.png)
 
-## Zbierane statystki
+### Zbierane statystki
 
-### Średni czas oczekiwania w kolejce (d)
+#### Średni czas oczekiwania w kolejce (d)
 
 `delayAccumulated` - suma czasów oczekiwania klientów od 0 do `i`
 
@@ -141,11 +131,77 @@ Diagramy aktywności UML prezentujące działanie programu oraz poszczególnych 
 
 `delayMean` -  średni czas oczekiwania w kolejce klientów
 
-### Liczba czasów w kolejce oszacowana w czasie ciągłym (q)
+#### Liczba czasów w kolejce oszacowana w czasie ciągłym (q)
 
 ![](img/1.png)
 
-### Wykorzystanie serwera obsługi (u)
+#### Wykorzystanie serwera obsługi (u)
 
 ![](img/2.png)
+
+### Walidacja poprawności M/M/1
+
+![](img/3.png)
+
+> Przy czym należy pamiętać, że rozkład wykładniczy ma następującą właściwość.
+>
+> ![](img/4.png)
+>
+> np. gdy ustawimy λ=1/2, to nowi klienci będą się pojawiać się średnio co 2 jednostki czasu
+
+Wartości ` λ` i `μ` przyjmujemy jako parametry wejściowe symulacja. 
+
+Walidacja czy symulacja jest wykonana poprawnie jest sprawdzenie czy wyniki jej doświadczeń zgadzają się z modelem matematycznym. Mówiąc prościej - dla zadanych ` λ` i `μ`, należy sprawdzić poprawność wzorów:
+
+<img src="img/5.png" style="zoom:50%;" />
+
+<img src="img/6.png" style="zoom:80%;" />
+
+#### Przykład
+
+Parametry wejściowe symulacji:
+
+λ = 1/2
+
+μ = 1
+
+Wyliczone `ρ` i  `W`:
+
+ρ = 1/2
+
+W = 1
+
+Wyniki symulacji:
+
+![](img/7.png)
+
+Uzyskane wyniki symulacji pozwalają stwierdzić, że system zaimplementowany jest poprawnie*
+
+W miarę odpalania kolejnych prób symulacji i liczenia wartości średniej z uzyskanych wyników, będzie się ona przybliżać do wartości obliczonych zgodnie z modelem matematycznym. Można też po prostu zwiększyć czas symulacji.
+
+>  *Oczywiście w celu sprawdzenia pełnej poprawności należy powtórzyć przykład dla innych wartość  λ i μ. (ważne przy ich dobieraniu jest to, aby ρ nie wyszło większe od 1 ==> oznaczało by to obciążenie systemu na więcej niż potrafi)
+
+#### Gdzie się zmienia wejściowe parametry?
+
+Wejściowe parametry, czyli:
+
+1/λ - średni odstęp czasowy między klientami napływającymi do systemu
+
+1/μ - średni czasu obsługi klientów przez serwer
+
+Zmienia się w odpowiednio plikach:*
+
+`src/algorithm/LibArrivalExp.h`
+
+`src/algorithm/LibDepartureExp.h`
+
+jako wartość pola `MEAN`
+
+> *od strony programistycznej takie rozwiązanie ssie, ale parametryzacja klasy Algorithm::Events poprzez przyjmowanie obiektów typu Algorithm::ILibArrival, Algorithm::ILibDeparture, którym podawane by były obiekty Algorithm::LibArrival, Algorithm::LibDeparture z odpowiednio ustawionym MEAN w ich konstruktorach, a to z kolei w konstruktorze klasy Program (co programistycznie by było ideałem), utrudniło by zrozumienie systemu.
+
+##### Przykład
+
+![](img/8.png)
+
+Tutaj λ jest ustawiona na 2.
 
