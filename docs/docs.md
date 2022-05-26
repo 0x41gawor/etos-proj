@@ -1,10 +1,20 @@
 # M/M/1 - Weighted Round Robin - Poisson
 
-## Stage 1 - Simple M/M/1
+Spis treści:
+
+1. [Stage 1 - Simple M/M/1](#1-stage-1-1---simple-MM1)
+   1. [Model systemu](#1.1-model-systemu)
+   2. [Moduly sumulacji](#1.2-moduły-symulacji)
+   3. [Program główny](#1.3-program-główny)
+   4. [Diagram klas](#1.4-diagram-klas)
+   5. [Zbierane statystyki](#1.5-zbierane-statystyki)
+   6. [Walidacja poprawności](#1.6-walidacja-poprawności)
+
+## 1 Stage 1 - Simple M/M/1
 
 W pierwszej fazie implementujemy czyste M/M/1, dopiero potem będzie ono rozwinięte o WRR i Poissona. 
 
-### Model systemu
+### 1.1 Model systemu
 
 **System** - pewien zbiór elementów oraz powiązań między nimi, które współdziałają, aby osiągnąć pewne logiczne zakończenie działania.
 
@@ -55,7 +65,7 @@ W pierwszej fazie implementujemy czyste M/M/1, dopiero potem będzie ono rozwini
 >
 > *Możliwe dodanie typu zdarzenia `END`, powodującego zatrzymanie symulacji (nie zmienia stanu systemu).
 
-### Moduły symulacji
+### 1.2 Moduły symulacji
 
 - stan systemu 
 
@@ -87,43 +97,43 @@ W pierwszej fazie implementujemy czyste M/M/1, dopiero potem będzie ono rozwini
   - wywołuje to wszystko
   - `Program`
 
-### Program główny
+### 1.3 Program główny
 
 Diagramy aktywności UML prezentujące działanie programu oraz poszczególnych algorytmów.
 
 ![](BPMN/img/main.png)
 
-#### Algorytm Inicjujący
+#### 1.3.1 Algorytm Inicjujący 
 
 ![](BPMN/img/algorithm_init.png)
 
-#### Algorytm czasowy
+#### 1.3.2 Algorytm czasowy
 
 ![](BPMN/img/algorithm_time.png)
 
-#### Algorytm zdarzeniowy
+#### 1.3.3 Algorytm zdarzeniowy
 
 ![](BPMN/img/algorithm_event.png)
 
-##### ARRIVAL
+##### 1.3.3.1 ARRIVAL
 
 ![](BPMN/img/algorithm_event_arrival.png)
 
-##### DEPARTURE
+##### 1.3.3.2 DEPARTURE
 
 ![](BPMN/img/algorithm_event_departure.png)
 
-##### END
+##### 1.3.3.3 END
 
 ![](BPMN/img/algorithm_event_end.png)
 
-### Implementacja
+### 1.4 Diagram klas
 
 ![](UML/class_diagram.png)
 
-### Zbierane statystki
+### 1.5 Zbierane statystyki
 
-#### Średni czas oczekiwania w kolejce (d)
+#### 1.5.1 Średni czas oczekiwania w kolejce (d)
 
 `delayAccumulated` - suma czasów oczekiwania klientów od 0 do `i`
 
@@ -131,15 +141,15 @@ Diagramy aktywności UML prezentujące działanie programu oraz poszczególnych 
 
 `delayMean` -  średni czas oczekiwania w kolejce klientów
 
-#### Liczba czasów w kolejce oszacowana w czasie ciągłym (q)
+#### 1.5.2 Liczba czasów w kolejce oszacowana w czasie ciągłym (q)
 
 ![](img/1.png)
 
-#### Wykorzystanie serwera obsługi (u)
+#### 1.5.3 Wykorzystanie serwera obsługi (u)
 
 ![](img/2.png)
 
-### Walidacja poprawności M/M/1
+### 1.6 Walidacja poprawności
 
 ![](img/3.png)
 
@@ -157,7 +167,7 @@ Walidacja czy symulacja jest wykonana poprawnie jest sprawdzenie czy wyniki jej 
 
 <img src="img/6.png" style="zoom:80%;" />
 
-#### Przykład
+#### 1.6.1 Przykład
 
 Parametry wejściowe symulacji:
 
@@ -181,7 +191,7 @@ W miarę odpalania kolejnych prób symulacji i liczenia wartości średniej z uz
 
 >  *Oczywiście w celu sprawdzenia pełnej poprawności należy powtórzyć przykład dla innych wartość  λ i μ. (ważne przy ich dobieraniu jest to, aby ρ nie wyszło większe od 1 ==> oznaczało by to obciążenie systemu na więcej niż potrafi)
 
-#### Gdzie się zmienia wejściowe parametry?
+#### 1.6.2 Gdzie się zmienia wejściowe parametry?
 
 Wejściowe parametry, czyli:
 
@@ -199,7 +209,7 @@ jako wartość pola `MEAN`
 
 > *od strony programistycznej takie rozwiązanie ssie, ale parametryzacja klasy Algorithm::Events poprzez przyjmowanie obiektów typu Algorithm::ILibArrival, Algorithm::ILibDeparture, którym podawane by były obiekty Algorithm::LibArrival, Algorithm::LibDeparture z odpowiednio ustawionym MEAN w ich konstruktorach, a to z kolei w konstruktorze klasy Program (co programistycznie by było ideałem), utrudniło by zrozumienie systemu.
 
-##### Przykład
+##### 1.6.2.1 Przykład
 
 ![](img/8.png)
 
