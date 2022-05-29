@@ -215,3 +215,49 @@ jako wartość pola `MEAN`
 
 Tutaj λ jest ustawiona na 2.
 
+## 2 Stage 2 - Weighted Round Robin
+
+### 2.1 Teoria
+
+WRR jest emulacją metody GPS (Generalized Process Sharing).
+
+W ramach każdego **strumienia**, **klienci** (**pakiety**) umieszczani są w osobnych **kolejkach**. 
+
+WRR sprawdza każdą *kolejkę* w pętli (cyklicznie) obsługując małą część danych z każdej *kolejki*.
+
+*Strumienie* mogą być skojarzone z **wagą**, wówczas te małe części są w proporcji do przydzielonych *wag*.
+
+Zakładamy, że wszystkie pakiety mają ten sam rozmiar.
+
+![](img/9.png)
+
+### 2.2 Nowe elementy modelu
+
+**Strumienie** - klienci nie pojawiają się jak do tej pory jako nierozróżnialne byty (jedyne co ich różniło to czas przybycia). Teraz każdy klient przybywa to systemu w ramach pewnego **strumienia**.
+
+**Źródła** - każdy ze *strumieni* ma swoje **źródło**. Przy czym *źródło* charakteryzuje się rozkładem intensywności napływu (np. wykładniczy). 
+
+> Przykładowo dwa źródła mogą mieć rozkład wykładniczy, ale o różnej wartości średniej.
+
+**Wagi** - każdy strumień opisany jest przez swoją wagę, która 
+
+**Scheduler**  - klienci pojawiający się w ramach danego *strumienia* trafiają do przypisanej mu kolejki. Zadaniem **Schedulera** jest wykonywanie algorytmu WRR, który odpowiednio przenosi klientów z kolejek przypisanych strumieniom, do **kolejki właściwej**, z której trafią bezpośrednio do serwera.
+
+![](img/10.png)
+
+## 2.3 Zmiany w symulacji
+
+### Algorithm::Events
+
+Teraz przybycie pakietu do głównej kolejki, nie może generować planować następnego przybycia, bo zablokowałoby by to klientów ze strumienia o najmniejszej wadze. Źródła muszą generować swoich klientów niezależnie. Dlatego zmianę uległby algorytm Algorithm::Events::Arrival
+
+![](BPMN/img/algorithm_event_arrival_new.png)
+
+Faktycznym zdarzeniem przybycia klienta do systemu by był typ eventu FlowArrival, to na początku obsługi tego eventu generowana, by nowy event dla przybycia klienta, z tego konkretnego Flow.
+
+> Wymaga, to dodania do klienta informacji z jakiego flow pochodzi. W tym momencie klient jest tworzony w momencie gdy pakiet nadejdzie do systemu (do kolejki głównej). Teraz Event::Arrival musi mieć też informację, którego flow ten event dotyczy. Dlatego należy dodać do klasy Sim::Event pole Flow, w przypadku eventu Departure przyjmowałoby by ono jakąś defaultową (nieosiągalną dla Arrival) wartość.
+
+Algorytm FlowArrival wyglądałby tak.
+
+![](BPMN/img/algorithm_event_flow_arrival.png)
+
