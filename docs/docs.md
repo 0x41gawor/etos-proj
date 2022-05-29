@@ -3,12 +3,12 @@
 Spis treści:
 
 1. [Stage 1 - Simple M/M/1](#1-stage-1-1---simple-MM1)
-   1. [Model systemu](#1.1-model-systemu)
-   2. [Moduly sumulacji](#1.2-moduły-symulacji)
-   3. [Program główny](#1.3-program-główny)
-   4. [Diagram klas](#1.4-diagram-klas)
-   5. [Zbierane statystyki](#1.5-zbierane-statystyki)
-   6. [Walidacja poprawności](#1.6-walidacja-poprawności)
+   1. [Model systemu](#11-model-systemu)
+   2. [Moduly sumulacji](#12-moduły-symulacji)
+   3. [Program główny](#13-program-główny)
+   4. [Diagram klas](#14-diagram-klas)
+   5. [Zbierane statystyki](#15-zbierane-statystyki)
+   6. [Walidacja poprawności](#16-walidacja-poprawności)
 
 ## 1 Stage 1 - Simple M/M/1
 
