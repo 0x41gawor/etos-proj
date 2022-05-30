@@ -13,3 +13,8 @@ double LibDepartureExp::run()
 
 	return -MEAN * log(RND);
 }
+
+double Algorithm::LibDepartureExp::run(double capacity, double size)
+{
+	return size/capacity;
+}
