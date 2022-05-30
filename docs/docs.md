@@ -233,31 +233,128 @@ Zakładamy, że wszystkie pakiety mają ten sam rozmiar.
 
 ### 2.2 Nowe elementy modelu
 
-**Strumienie** - klienci nie pojawiają się jak do tej pory jako nierozróżnialne byty (jedyne co ich różniło to czas przybycia). Teraz każdy klient przybywa to systemu w ramach pewnego **strumienia**.
+**Strumienie** - teraz klienci pojawiają się w systemie w ramach jakiegoś strumienia. Strumień cechuję to, że ma swoją *wagę*, oraz że wszyscy klienci z danego strumienia mają ten sam *rozmiar*).
 
-**Źródła** - każdy ze *strumieni* ma swoje **źródło**. Przy czym *źródło* charakteryzuje się rozkładem intensywności napływu (np. wykładniczy). 
+> W symulacji wystarczą tylko dwa strumienie.
+
+**Wagi** - każdy strumień opisany jest przez swoją wagę, która odzwierciedla jego priorytetyzację w algorytmie WRR.
+
+**Rozmiar** - ma znaczenie przy obliczaniu czasu obsługi danego klienta. Teraz czas obsługi przez serwer nie jest dany rozkładem wykładniczym, a jest obliczany na podstawie **przepustowości** serwera i rozmiaru klienta.
+
+**Źródła** - każdy ze *strumieni* ma swoje **źródło**. Przy czym *źródło* charakteryzuje się rozkładem intensywności napływu (np. wykładniczy). Złożenie ruchu z kilku źródeł tworzy ruch Poissona.
 
 > Przykładowo dwa źródła mogą mieć rozkład wykładniczy, ale o różnej wartości średniej.
 
-**Wagi** - każdy strumień opisany jest przez swoją wagę, która 
+**Wagi** - każdy strumień opisany jest przez swoją wagę, która odzwierciedla jego priorytetyzację w algorytmie WRR.
 
-**Scheduler**  - klienci pojawiający się w ramach danego *strumienia* trafiają do przypisanej mu kolejki. Zadaniem **Schedulera** jest wykonywanie algorytmu WRR, który odpowiednio przenosi klientów z kolejek przypisanych strumieniom, do **kolejki właściwej**, z której trafią bezpośrednio do serwera.
+**Scheduler**  - klienci pojawiający się w ramach danego *strumienia* trafiają do przypisanej mu kolejki. Zadaniem **Schedulera** jest wykonywanie algorytmu WRR, który odpowiednio przenosi klientów z kolejek przypisanych strumieniom, do serwera obsługi.
 
 ![](img/10.png)
 
-## 2.3 Zmiany w symulacji
+Co się zmienia względem starego systemu?
 
-### Algorithm::Events
+- To, pakiety przybywają teraz z dwóch niezależnych źródeł.
 
-Teraz przybycie pakietu do głównej kolejki, nie może generować planować następnego przybycia, bo zablokowałoby by to klientów ze strumienia o najmniejszej wadze. Źródła muszą generować swoich klientów niezależnie. Dlatego zmianę uległby algorytm Algorithm::Events::Arrival
+- To, że Queue zostaje zastąpione przez dwie kolejki i Scheduler.
 
-![](BPMN/img/algorithm_event_arrival_new.png)
+Reszta pozostaje bez zmian. Tak więc powinna się zmienić jedynie:
 
-Faktycznym zdarzeniem przybycia klienta do systemu by był typ eventu FlowArrival, to na początku obsługi tego eventu generowana, by nowy event dla przybycia klienta, z tego konkretnego Flow.
+- obsługa przybycia klienta - na taką która uwzględnia strumienie
+- implementacja/środek kolejki - ale komunikacja z nią powinna pozostać nienaruszona
 
-> Wymaga, to dodania do klienta informacji z jakiego flow pochodzi. W tym momencie klient jest tworzony w momencie gdy pakiet nadejdzie do systemu (do kolejki głównej). Teraz Event::Arrival musi mieć też informację, którego flow ten event dotyczy. Dlatego należy dodać do klasy Sim::Event pole Flow, w przypadku eventu Departure przyjmowałoby by ono jakąś defaultową (nieosiągalną dla Arrival) wartość.
+### 2.3 Zmiany
 
-Algorytm FlowArrival wyglądałby tak.
+#### 2.3.1 Obsługa przybycia klienta
 
-![](BPMN/img/algorithm_event_flow_arrival.png)
+Aby zachować niezależność źródeł należy pojedyncze zdarzenie ARRIVAL zastąpić przez ARRIVAL_A, ARRIVAL_B (żeby na eventList było zawsze po jednym zdarzeniu z tych typów).
+
+Poprzednio po przybyciu sprawdzano czy server.status == FREE, 
+
+- jeśli tak pakiet trafiał od razu do obsługi. Tak też pozostanie i teraz (z tym, że Scheduler musi zmienić swój stan, ale o tym potem)
+- jeśli nie pakiet trafiał do kolejki. Tutaj zmieni się tylko to, że pakiet trafia do jednej z dwóch kolejek w zależności, do którego strumienia należy.
+
+> Skoro tworzymy klienta w momencie, kiedy znamy źródło z którego przybył, możemy dodać do klienta informację o strumieniu. Może to się przydać przy statystykach.
+
+#### 2.3.2 Implementacja/środek kolejki
+
+Wcześniej była pojedyncza kolejka, która używana była tylko w dwóch przypadkach:
+
+- podczas ARRIVAL gdy server był BUSY - client był do niej dodawany
+- podczas DEPARTURE, gdy server pobierał do obsługi kolejnego klienta - kolejka zwracała następny pakiet do obsługi
+
+Teraz będzie tak samo, lecz zamiast dodawać/brać do/z Queue, będziemy dodawać/brać do/z Scheduler.
+
+Scheduler w sobie będzie miał dwie kolejki, dzięki którym będzie wykonywał WRR.
+
+> Także programistycznie wychodzi, że Scheduler będzie implementował ten sam interfejs co Queue
+
+Czyli z punktu widzenia systemu teraz zamiast Queue, będzie Scheduler (i cały WRR jest na jego barkach).
+
+### 2.4 Klasy
+
+Po pierwsze pojawi się nowa klasa statyczna  `System::Flows`, o polach `weight_A`, `weight_B` i `size_A`, `size_B` , `mean_A`, `mean_B` określające wagi, 1/λ rozkładu i rozmiary klientów danego flow.
+
+W klasie `System::Client` pojawi się pole `flow` przyjmujące wartości z enuma `flowEnum {A, B}`.
+
+W klasie `System::Server` pojawi się pole `capacity` typu określające przepustowość (na jej podstawie oraz rozmiaru klienta liczony będzie czas obsługi).
+
+Metoda `Algorithm::LibDeparture.run()` będzie teraz przyjmowała dwa argumenty `capacity` i `size`, i na tej podstawie zwracała czas obsługi klienta.
+
+Metoda `Algorithm::LibArrival.run()` będzie przyjmowała wartość `MEAN`, która będzie podawana zgodnie z danym flow.
+
+Powstanie nowa klasa `System::Scheduler`, który zastąpi `System::Queue`. Polami tej klasy będą `queue_A` i `queue_B` typu `System::Queue` oraz zmienna `cycle` określająca stan cyklu Schedulera.
+
+### 2.5 Implementacja Schedulera
+
+Scheduler musi implementować algorytm WRR (Weighted Round Robin) oraz zachowywać się tak jak `System::Queue`.
+
+### 2.5.1 Wyjaśnienie WRR
+
+Zasadę działania Schedulera łatwo wyjaśnić na konkretnych wagach. Załóżmy wagi:
+
+1 dla flow A
+
+2 dla flow B
+
+Długość cyklu w tym przypadku wynosi `3` (suma wag). 
+
+Mamy zmienną `cycle`, która określa moment cyklu. Może ona przyjmować wartości `1,2,3`. 
+
+Ogólnie Scheduler ma zwracać serwerowi klienta do obsługi i cała prostota rozwiązania polega na tym, że zwraca on klienta z kolejki, która jest określona na podstawie zmiennej `cycle`.
+
+Funkcja, która opisuje z której kolejki zwrócić pakiet, gdzie parametrem jest `cycle` wygląda następująco:
+
+- `queue_A`, gdy `cycle == 1 || 2`
+- `queue_B`, gdy `cycle == 3`
+
+Następnie, po zwróceniu klienta inkrementuje on zmienną `cycle` (`cycle++`).
+
+Gdy jednak kolejka, na którą wskazuje `cycle` jest pusta. Scheduler zwraca klienta z drugiej kolejki przeskakując odpowiednio zmienną `cycle`, tak aby wskazać, że zwrócił właśnie klienta z tej kolejki. 
+
+> Czyli gdy `cycle` wskazuje na `queue_A`, ale jest ona pusta to zwraca ` queue_B` i zmienną `cycle` ustawia na `3+1=4`.
+>
+> Zaś gdy `cycle` wskazuje na `queue_B`, ale jest ona pusta to zwraca `queue_A`  i zmienną `cycle` ustawia na `1+1=2`.
+>
+> Takie coś symuluje to, że WRR omija puste kolejki, ale zalicza to do przebiegnięcia cyklu.
+
+### 2.5.3 Kiedy WRR jest uruchamiany?
+
+Wtedy gdy Scheduler ma przekazać klienta serwerowi. Czyli dwie sytuacje
+
+- Do systemu przybył klient i server jest FREE                ---> Event Arrival
+- Server skończył obsługę klienta i pyta o następnego ---> Event Departure
+
+### 2.6 Nowe algorytmy zdarzeniowe
+
+### 2.6.1 Arrival_A, Arrival_B
+
+![](BPMN/img/stage2/algorithm_event_arrival_a.png)
+
+#### 2.6.1 Departure
+
+![](BPMN/img/stage2/algorithm_event_departure_new.png)
+
+### 2.7 Nowy diagram klas
+
+![](UML/stage2/class_diagram.png)
 
