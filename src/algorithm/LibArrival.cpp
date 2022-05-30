@@ -13,3 +13,16 @@ double LibArrivalExp::run()
 
 	return -MEAN * log(RND);
 }
+
+double Algorithm::LibArrivalExp::run(double mean)
+{
+	double RND;
+
+	do
+	{
+		RND = static_cast<double>(rand()) / RAND_MAX;
+	} while (RND == 0);
+
+	return -mean * log(RND);
+}
+}

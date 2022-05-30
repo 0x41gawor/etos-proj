@@ -13,6 +13,7 @@ namespace Algorithm
 		double MEAN = 2.0;
 	public:
 		double run();
+		double run(double mean);
 	};
 }
 
