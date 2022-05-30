@@ -1,6 +1,8 @@
 #pragma once
+
 #include "Queue.h"
 #include "Client.h"
+#include "Flows.h"
 
 namespace System
 {
@@ -18,7 +20,7 @@ namespace System
 
 		Scheduler();
 		void push(Client client);
-		Client pop();
+		Client* pop();
 	};
 }
 
