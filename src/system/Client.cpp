@@ -2,7 +2,7 @@
 
 using namespace System;
 
-Client::Client(double arrivalTime):arrivalTime(arrivalTime)
+Client::Client(double arrivalTime):arrivalTime(arrivalTime), flow{FlowEnum::A}
 {
 	;;
 }
@@ -13,5 +13,5 @@ System::Client::Client(double arrivalTime, FlowEnum flow): arrivalTime(arrivalTi
 
 std::ostream& System::operator<<(std::ostream& os, Client const& c)
 {
-	return os << "Client{arrivalTime=" << c.arrivalTime << "}";
+	return os << "Client{arrivalTime=" << c.arrivalTime <<", flow= " <<c.flow << "}";
 }
