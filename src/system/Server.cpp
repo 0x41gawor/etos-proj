@@ -2,9 +2,9 @@
 
 using namespace System;
 
-Server::Server()
+Server::Server() :status{ ServerStatusEnum::FREE }, capacity { 5.0 }
 {
-	status = ServerStatusEnum::FREE;
+	
 }
 
 std::ostream& System::operator<<(std::ostream& os, Server const& s)
