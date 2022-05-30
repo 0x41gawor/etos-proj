@@ -13,6 +13,7 @@ namespace Algorithm
 		double MEAN = 1.25;
 	public:
 		double run();
+		double run(double capacity, double size);
 	};
 
 }

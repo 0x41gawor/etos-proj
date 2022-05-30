@@ -11,6 +11,7 @@ namespace System
 	{
 	public:																			// < M E M B E R S >
 		ServerStatusEnum status;
+		double capacity;
 	public:																			// < M E T H O D S >
 		Server();
 	};
