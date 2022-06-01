@@ -25,4 +25,3 @@ double Algorithm::LibArrivalExp::run(double mean)
 
 	return -mean * log(RND);
 }
-}

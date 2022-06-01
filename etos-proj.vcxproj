@@ -153,7 +153,10 @@
     <ClCompile Include="src\sim\RaportGenerator.cpp" />
     <ClCompile Include="src\sim\Stats.cpp" />
     <ClCompile Include="src\system\Client.cpp" />
+    <ClCompile Include="src\system\FlowEnum.cpp" />
+    <ClCompile Include="src\system\Flows.cpp" />
     <ClCompile Include="src\system\Queue.cpp" />
+    <ClCompile Include="src\system\Scheduler.cpp" />
     <ClCompile Include="src\system\Server.cpp" />
     <ClCompile Include="src\system\ServerStatusEnum.cpp" />
     <ClCompile Include="src\system\System.cpp" />
@@ -173,7 +176,10 @@
     <ClInclude Include="src\sim\RaportGenerator.h" />
     <ClInclude Include="src\sim\Stats.h" />
     <ClInclude Include="src\system\Client.h" />
+    <ClInclude Include="src\system\FlowEnum.h" />
+    <ClInclude Include="src\system\Flows.h" />
     <ClInclude Include="src\system\Queue.h" />
+    <ClInclude Include="src\system\Scheduler.h" />
     <ClInclude Include="src\system\Server.h" />
     <ClInclude Include="src\system\ServerStatusEnum.h" />
     <ClInclude Include="src\system\System.h" />
