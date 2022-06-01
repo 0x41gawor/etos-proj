@@ -27,28 +27,33 @@ bool Events::run(Sim::Event event)
 
 bool Events::arrival_A()
 {
-	//zaplanuj kolejne ArrivalEvent
-	eventList->push(Sim::Event(*simTime + libArrival.run(), Sim::EventTypeEnum::ARRIVAL_A));
+	//zaplanuj kolejny event Arrival_A
+	eventList->push(Sim::Event(*simTime + libArrival.run(System::Flows::mean_A), Sim::EventTypeEnum::ARRIVAL_A));
+	system->scheduler.push(System::Client(*simTime, System::FlowEnum::A));
 	// czy serwer zajêty?
 	switch (system->server.status)
 	{
 		case System::ServerStatusEnum::BUSY:
 		{
-			// zbierz statystki
-			stats->q(*simTime, system->queue.clientsCount);
-			// dodaj 1 do liczby klientów w kolejce
-			system->queue.push(System::Client(*simTime));
+			// zbierz statystki //TODO
+			stats->q(*simTime, system->scheduler.clientsCount);
 			break;
 		}
 		case System::ServerStatusEnum::FREE:
 		{
-			// ustaw opóŸnienie=0 dla tego klienta i zbierz statystki
+			// ustaw opóŸnienie=0 dla tego klienta i zbierz statystki //TODO
 			stats->d(0.0);
 			stats->u(*simTime, system->server.status);
 			// ustaw stan serwera na zajêty
 			system->server.status = System::ServerStatusEnum::BUSY;
+			// Zdejmij klienta
+			system->scheduler.pop();
 			//zaplanuj zdarzenie zakonczenia obslugi klienta
-			eventList->push(Sim::Event(*simTime + libDeparture.run(), Sim::EventTypeEnum::DEPARTURE));
+			std::cout << "Serverowi dal: " << System::FlowEnum::A << "\n";
+			eventList->push(
+				Sim::Event(
+					*simTime + libDeparture.run(system->server.capacity, System::Flows::getSize(System::FlowEnum::A)), Sim::EventTypeEnum::DEPARTURE
+				));
 			break;
 		}
 	}
@@ -57,28 +62,33 @@ bool Events::arrival_A()
 
 bool Events::arrival_B()
 {
-	//zaplanuj kolejne ArrivalEvent
-	eventList->push(Sim::Event(*simTime + libArrival.run(), Sim::EventTypeEnum::ARRIVAL_B));
+	//zaplanuj kolejny event Arrival_B
+	eventList->push(Sim::Event(*simTime + libArrival.run(System::Flows::mean_B), Sim::EventTypeEnum::ARRIVAL_B));
+	system->scheduler.push(System::Client(*simTime, System::FlowEnum::B));
 	// czy serwer zajêty?
 	switch (system->server.status)
 	{
 	case System::ServerStatusEnum::BUSY:
 	{
-		// zbierz statystki
-		stats->q(*simTime, system->queue.clientsCount);
-		// dodaj 1 do liczby klientów w kolejce
-		system->queue.push(System::Client(*simTime));
+		// zbierz statystki //TODO
+		stats->q(*simTime, system->scheduler.clientsCount);
 		break;
 	}
 	case System::ServerStatusEnum::FREE:
 	{
-		// ustaw opóŸnienie=0 dla tego klienta i zbierz statystki
+		// ustaw opóŸnienie=0 dla tego klienta i zbierz statystki //TODO
 		stats->d(0.0);
 		stats->u(*simTime, system->server.status);
 		// ustaw stan serwera na zajêty
 		system->server.status = System::ServerStatusEnum::BUSY;
+		// Zdejmij klienta
+		system->scheduler.pop();
 		//zaplanuj zdarzenie zakonczenia obslugi klienta
-		eventList->push(Sim::Event(*simTime + libDeparture.run(), Sim::EventTypeEnum::DEPARTURE));
+		std::cout << "Serverowi dal: " << System::FlowEnum::B << "\n";
+		eventList->push(
+			Sim::Event(
+				*simTime + libDeparture.run(system->server.capacity, System::Flows::getSize(System::FlowEnum::B)), Sim::EventTypeEnum::DEPARTURE
+			));
 		break;
 	}
 	}
@@ -87,11 +97,12 @@ bool Events::arrival_B()
 
 bool Events::departure()
 {
-	switch (system->queue.isEmpty)
+	switch (system->scheduler.isEmpty)
 	{
 		case true:
 		{
-			// zbierz statystki
+			std::cout << "Scheduler: pusty\n";
+			// zbierz statystki //TODO
 			stats->u(*simTime, system->server.status);
 			// ustaw stan serwera na wolny
 			system->server.status = System::ServerStatusEnum::FREE;
@@ -99,14 +110,19 @@ bool Events::departure()
 		}
 		case false:
 		{
-			// zbierz statystki
-			stats->q(*simTime, system->queue.clientsCount);
+			// zbierz statystki //TODO
+			stats->q(*simTime, system->scheduler.clientsCount);
 			// odejmij 1 od liczby klientów w kolejce
-			System::Client client = *system->queue.pop();
-			// oblicz opóŸnienie klienta i zbierz statystki //dodaj jeden do licznika opóŸnieñ klientów
+			std::cout << "Scheduler: "; system->scheduler.show();
+			System::Client client = *system->scheduler.pop();
+			std::cout << "\nServerowi dal: " << client.flow << "\n";
+			// oblicz opóŸnienie klienta i zbierz statystki //dodaj jeden do licznika opóŸnieñ klientów //TODO
 			stats->d(*simTime - client.arrivalTime);
 			// zaplanuj zdarzenie zakoñczenia obs³ugi dla nastêpnego klienta
-			eventList->push(Sim::Event(*simTime + libDeparture.run(), Sim::EventTypeEnum::DEPARTURE));
+			eventList->push(
+				Sim::Event(
+					*simTime + libDeparture.run(system->server.capacity, System::Flows::getSize(client.flow)), Sim::EventTypeEnum::DEPARTURE
+				));
 			// przesun ka¿dego klienta o jedno miejsce --> w FIFO tego nie potrzebujemy
 		}
 	}

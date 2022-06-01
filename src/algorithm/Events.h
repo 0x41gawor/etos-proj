@@ -3,6 +3,7 @@
 #include "../sim/EventList.h"
 #include "../system/System.h"
 #include "../sim/Stats.h"
+#include "../system/Flows.h"
 #include "LibArrivalExp.h"
 #include "LibDepartureExp.h"
 

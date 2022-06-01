@@ -8,10 +8,10 @@ System::System::System()
 void System::System::init()
 {
 	server = Server();
-	queue = Queue();
+	scheduler = Scheduler();
 }
 
 std::ostream& System::operator<<(std::ostream& os, System const& s)
 {
-	return os << "System{server=" << s.server << ", queue=" << s.queue << "}";
+	return os << "System{server=" << s.server << ", queue=" << s.scheduler << "}";
 }

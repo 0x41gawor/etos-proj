@@ -9,7 +9,7 @@ RaportGenerator::RaportGenerator()
 void RaportGenerator::run(Stats stats, System::System system,  double simTime)
 {
 	// dolicz ostatnie q
-	stats.q(simTime, system.queue.clientsCount);
+	stats.q(simTime, system.scheduler.clientsCount);
 	// dolicz ostatnie u
 	stats.u(simTime, system.server.status);
 	// wyswietl wyniki
