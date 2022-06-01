@@ -141,13 +141,17 @@ Diagramy aktywności UML prezentujące działanie programu oraz poszczególnych 
 
 `delayMean` -  średni czas oczekiwania w kolejce klientów
 
-#### 1.5.2 Liczba czasów w kolejce oszacowana w czasie ciągłym (q)
+#### 1.5.2 Liczba kleintów w kolejce oszacowana w czasie ciągłym (q)
 
 ![](img/1.png)
+
+> UWAGA na obrazku jest gdzieś błąd. Wiem, że zauważyłem, ale nie zmieniłem tego i już zapomniałem co tu jest źle, więc jak znajdziesz tu coś źle, to uznaj, że to ten błąd xd
 
 #### 1.5.3 Wykorzystanie serwera obsługi (u)
 
 ![](img/2.png)
+
+> UWAGA na obrazku jest gdzieś błąd. Wiem, że zauważyłem, ale nie zmieniłem tego i już zapomniałem co tu jest źle, więc jak znajdziesz tu coś źle, to uznaj, że to ten błąd xd
 
 ### 1.6 Walidacja poprawności
 
@@ -357,4 +361,32 @@ Wtedy gdy Scheduler ma przekazać klienta serwerowi. Czyli dwie sytuacje
 ### 2.7 Nowy diagram klas
 
 ![](UML/stage2/class_diagram.png)
+
+## 2.8 Nowe statystki
+
+Wcześniej liczone były następujące staty:
+
+- Średni czas oczekiwania w kolejce (d)
+- Liczba klientów w kolejce oszacowana w czasie ciągłym (q)
+- Wykorzystanie serwera obsługi (u)
+
+Teraz z racji, że kolejki są dwie, można policzyć również można policzyć te same staty:
+
+- dla strumienia A
+- dla strumienia B
+- sumarycznie oba strumienie
+
+No oprócz wykorzystania serwera obsługi, bo serwer jest still jeden.
+
+### 2.8.1 Zmiany w implementacji
+
+Zmienne w klasie `Sim::Stats` zamienią się po prostu w tablice 3-elementowe.
+
+0 - suma
+
+1 - strumień A
+
+2 - strumień B
+
+Do liczenia sumy pozostaną metody, które są już zaimplementowane. Do liczenia strumienia powstanie metoda, która jako parametr przyjmuje `System::FlowEnum`.
 
