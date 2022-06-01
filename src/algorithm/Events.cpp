@@ -15,18 +15,20 @@ bool Events::run(Sim::Event event)
 	{
 	case Sim::EventTypeEnum::END:
 		return end();
-	case Sim::EventTypeEnum::ARRIVAL:
-		return arrival();
+	case Sim::EventTypeEnum::ARRIVAL_A:
+		return arrival_A();
+	case Sim::EventTypeEnum::ARRIVAL_B:
+		return arrival_B();
 	case Sim::EventTypeEnum::DEPARTURE:
 		return departure();
 	}
 	return true;
 }
 
-bool Events::arrival()
+bool Events::arrival_A()
 {
 	//zaplanuj kolejne ArrivalEvent
-	eventList->push(Sim::Event(*simTime + libArrival.run(), Sim::EventTypeEnum::ARRIVAL));
+	eventList->push(Sim::Event(*simTime + libArrival.run(), Sim::EventTypeEnum::ARRIVAL_A));
 	// czy serwer zajêty?
 	switch (system->server.status)
 	{
@@ -49,6 +51,36 @@ bool Events::arrival()
 			eventList->push(Sim::Event(*simTime + libDeparture.run(), Sim::EventTypeEnum::DEPARTURE));
 			break;
 		}
+	}
+	return false;
+}
+
+bool Events::arrival_B()
+{
+	//zaplanuj kolejne ArrivalEvent
+	eventList->push(Sim::Event(*simTime + libArrival.run(), Sim::EventTypeEnum::ARRIVAL_B));
+	// czy serwer zajêty?
+	switch (system->server.status)
+	{
+	case System::ServerStatusEnum::BUSY:
+	{
+		// zbierz statystki
+		stats->q(*simTime, system->queue.clientsCount);
+		// dodaj 1 do liczby klientów w kolejce
+		system->queue.push(System::Client(*simTime));
+		break;
+	}
+	case System::ServerStatusEnum::FREE:
+	{
+		// ustaw opóŸnienie=0 dla tego klienta i zbierz statystki
+		stats->d(0.0);
+		stats->u(*simTime, system->server.status);
+		// ustaw stan serwera na zajêty
+		system->server.status = System::ServerStatusEnum::BUSY;
+		//zaplanuj zdarzenie zakonczenia obslugi klienta
+		eventList->push(Sim::Event(*simTime + libDeparture.run(), Sim::EventTypeEnum::DEPARTURE));
+		break;
+	}
 	}
 	return false;
 }

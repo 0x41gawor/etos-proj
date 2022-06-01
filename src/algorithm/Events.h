@@ -23,7 +23,8 @@ namespace Algorithm
 		Events(Sim::EventList* eventList, double* simTime, System::System* system, Sim::Stats* stats);
 		bool run(Sim::Event);
 	private:
-		bool arrival();
+		bool arrival_A();
+		bool arrival_B();
 		bool departure();
 		bool end();
 	};

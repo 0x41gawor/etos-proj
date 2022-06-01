@@ -6,7 +6,8 @@ namespace Sim
 {
 	enum class EventTypeEnum
 	{
-		ARRIVAL,
+		ARRIVAL_A,
+		ARRIVAL_B,
 		DEPARTURE,
 		END
 	};
