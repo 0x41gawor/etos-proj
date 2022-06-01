@@ -20,7 +20,7 @@ void Scheduler::push(Client client)
 	}
 	clientsCount_A = queue_A.clientsCount;
 	clientsCount_B = queue_B.clientsCount;
-	isEmpty = 0 == clientsCount_A + clientsCount_B;
+	isEmpty = (0 == clientsCount_A + clientsCount_B);
 }
 
 Client* Scheduler::pop()
@@ -44,7 +44,7 @@ Client* Scheduler::pop()
 				if (cycle > weightSum) cycle = 1;
 				Client* client = queue_B.pop();
 				clientsCount_B = queue_B.clientsCount;
-				isEmpty = 0 == clientsCount_A + clientsCount_B;
+				isEmpty = (0 == clientsCount_A + clientsCount_B);
 				return client;
 			}
 			else
