@@ -257,7 +257,7 @@ Zakładamy, że wszystkie pakiety mają ten sam rozmiar.
 
 Co się zmienia względem starego systemu?
 
-- To, pakiety przybywają teraz z dwóch niezależnych źródeł.
+- To, że pakiety przybywają teraz z dwóch niezależnych źródeł.
 
 - To, że Queue zostaje zastąpione przez dwie kolejki i Scheduler.
 

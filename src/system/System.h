@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Server.h"
-#include "Queue.h"
+#include "Scheduler.h"
 
 #include <ostream>
 
@@ -12,7 +12,7 @@ namespace System
 	{
 	public:																			// < M E M B E R S >
 		Server server;
-		Queue queue;
+		Scheduler scheduler;
 	public:																			// < M E T H O D S >
 		System();
 		void init();

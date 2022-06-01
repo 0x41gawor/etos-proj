@@ -16,13 +16,15 @@ namespace System
 	public:
 		int clientsCount_A;
 		int clientsCount_B;
+		int clientsCount;
 		bool isEmpty;
 
 		Scheduler();
 		void push(Client client);
 		Client* pop();
 		void show();
-
+		friend std::ostream& operator<<(std::ostream& os, Scheduler const& s);
 	};
+	
 }
 

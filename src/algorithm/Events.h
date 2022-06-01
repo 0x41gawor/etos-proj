@@ -3,6 +3,7 @@
 #include "../sim/EventList.h"
 #include "../system/System.h"
 #include "../sim/Stats.h"
+#include "../system/Flows.h"
 #include "LibArrivalExp.h"
 #include "LibDepartureExp.h"
 
@@ -23,7 +24,8 @@ namespace Algorithm
 		Events(Sim::EventList* eventList, double* simTime, System::System* system, Sim::Stats* stats);
 		bool run(Sim::Event);
 	private:
-		bool arrival();
+		bool arrival_A();
+		bool arrival_B();
 		bool departure();
 		bool end();
 	};

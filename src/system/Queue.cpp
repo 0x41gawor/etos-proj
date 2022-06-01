@@ -35,7 +35,7 @@ void Queue::show()
 		copy.pop();
 		if (copy.size() > 1) std::cout << ",";
 	}
-	std::cout << " ]\n";
+	std::cout << " ] ";
 }
 
 std::ostream& System::operator<<(std::ostream& os, Queue const& q)
