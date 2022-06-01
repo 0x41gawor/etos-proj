@@ -13,18 +13,53 @@ Sim::Stats::Stats()
 
 void Stats::d(double delay)
 {
-	d_accumulated += delay;
-	d_number++;
-	d_mean = d_accumulated / d_number;
+	int index = 0;
+	d_accumulated[index] += delay;
+	d_number[index]++;
+	d_mean[index] = d_accumulated[index] / d_number[index];
 }
+
+void Stats::d(double delay, System::FlowEnum flow)
+{
+	int index = 0;
+	switch (flow) 
+	{
+	case System::FlowEnum::A:
+		index = 1; break;
+	case System::FlowEnum::B:
+		index = 2; break;
+	}
+	d_accumulated[index] += delay;
+	d_number[index]++;
+	d_mean[index] = d_accumulated[index] / d_number[index];
+}
+
 
 void Stats::q(double simTime, int clientsCount)
 {
-	double timeInterval = simTime - q_lastSimTime;
-	q_lastSimTime = simTime;
+	int index = 0;
+	double timeInterval = simTime - q_lastSimTime[index];
+	q_lastSimTime[index] = simTime;
 	double rect = timeInterval * clientsCount;
-	q_rects += rect;
-	q_value = q_rects / simTime;
+	q_rects[index] += rect;
+	q_value[index] = q_rects[index] / simTime;
+}
+
+void Stats::q(double simTime, int clientsCount, System::FlowEnum flow)
+{
+	int index = 0;
+	switch (flow)
+	{
+	case System::FlowEnum::A:
+		index = 1; break;
+	case System::FlowEnum::B:
+		index = 2; break;
+	}	
+	double timeInterval = simTime - q_lastSimTime[index];
+	q_lastSimTime[index] = simTime;
+	double rect = timeInterval * clientsCount;
+	q_rects[index] += rect;
+	q_value[index] = q_rects[index] / simTime;
 }
 
 void Stats::u(double simTime, System::ServerStatusEnum status)
