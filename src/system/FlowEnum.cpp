@@ -11,8 +11,6 @@ std::ostream& System::operator<<(std::ostream& os, FlowEnum const& f)
 		str = "A"; break;
 	case FlowEnum::B:
 		str = "B"; break;
-	case FlowEnum::None:
-		str = "None"; break;
 	}
 	return os << str;
 }

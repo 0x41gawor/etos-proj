@@ -21,6 +21,8 @@ namespace System
 		Scheduler();
 		void push(Client client);
 		Client* pop();
+		void show();
+
 	};
 }
 

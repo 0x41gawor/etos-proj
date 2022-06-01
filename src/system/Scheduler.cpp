@@ -20,7 +20,7 @@ void Scheduler::push(Client client)
 	}
 	clientsCount_A = queue_A.clientsCount;
 	clientsCount_B = queue_B.clientsCount;
-	isEmpty = false;
+	isEmpty = (0 == clientsCount_A + clientsCount_B);
 }
 
 Client* Scheduler::pop()
@@ -33,7 +33,7 @@ Client* Scheduler::pop()
 			if (cycle > weightSum) cycle = 1;
 			Client* client =  queue_A.pop();
 			clientsCount_A = queue_A.clientsCount;
-			isEmpty == !queue_A.isEmpty || !queue_B.isEmpty;
+			isEmpty = (0 == clientsCount_A + clientsCount_B);
 			return client;
 		}
 		else
@@ -44,7 +44,7 @@ Client* Scheduler::pop()
 				if (cycle > weightSum) cycle = 1;
 				Client* client = queue_B.pop();
 				clientsCount_B = queue_B.clientsCount;
-				isEmpty == !queue_A.isEmpty || !queue_B.isEmpty;
+				isEmpty = (0 == clientsCount_A + clientsCount_B);
 				return client;
 			}
 			else
@@ -61,7 +61,7 @@ Client* Scheduler::pop()
 			if (cycle > weightSum) cycle = 1;
 			Client* client = queue_B.pop();
 			clientsCount_B = queue_B.clientsCount;
-			isEmpty == !queue_A.isEmpty || !queue_B.isEmpty;
+			isEmpty = (0 == clientsCount_A + clientsCount_B);
 			return client;
 		}
 		else
@@ -72,7 +72,7 @@ Client* Scheduler::pop()
 				if (cycle > weightSum) cycle = 1;
 				Client* client = queue_A.pop();
 				clientsCount_A = queue_A.clientsCount;
-				isEmpty == !queue_A.isEmpty || !queue_B.isEmpty;
+				isEmpty = (0 == clientsCount_A + clientsCount_B);
 				return client;
 			}
 			else
@@ -82,4 +82,10 @@ Client* Scheduler::pop()
 		}
 	}
 	return NULL;
+}
+
+void System::Scheduler::show()
+{
+	std::cout << "\nQueue A:"; queue_A.show(); 
+	std::cout << "Queue B:"; queue_B.show(); 
 }
