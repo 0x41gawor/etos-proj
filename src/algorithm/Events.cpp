@@ -35,14 +35,16 @@ bool Events::arrival_A()
 	{
 		case System::ServerStatusEnum::BUSY:
 		{
-			// zbierz statystki //TODO
-			stats->q(*simTime, system->scheduler.clientsCount);
+			// zbierz statystki 
+			stats->q(*simTime, system->scheduler.clientsCount-1);
+			stats->q(*simTime, system->scheduler.clientsCount_A-1, System::FlowEnum::A);
 			break;
 		}
 		case System::ServerStatusEnum::FREE:
 		{
-			// ustaw opóŸnienie=0 dla tego klienta i zbierz statystki //TODO
+			// ustaw opóŸnienie=0 dla tego klienta i zbierz statystki 
 			stats->d(0.0);
+			stats->d(0.0, System::FlowEnum::A);
 			stats->u(*simTime, system->server.status);
 			// ustaw stan serwera na zajêty
 			system->server.status = System::ServerStatusEnum::BUSY;
@@ -70,14 +72,16 @@ bool Events::arrival_B()
 	{
 	case System::ServerStatusEnum::BUSY:
 	{
-		// zbierz statystki //TODO
-		stats->q(*simTime, system->scheduler.clientsCount);
+		// zbierz statystki 
+		stats->q(*simTime, system->scheduler.clientsCount - 1);
+		stats->q(*simTime, system->scheduler.clientsCount_B - 1, System::FlowEnum::B);
 		break;
 	}
 	case System::ServerStatusEnum::FREE:
 	{
-		// ustaw opóŸnienie=0 dla tego klienta i zbierz statystki //TODO
+		// ustaw opóŸnienie=0 dla tego klienta i zbierz statystki 
 		stats->d(0.0);
+		stats->d(0.0, System::FlowEnum::B);
 		stats->u(*simTime, system->server.status);
 		// ustaw stan serwera na zajêty
 		system->server.status = System::ServerStatusEnum::BUSY;
@@ -113,8 +117,17 @@ bool Events::departure()
 			// zbierz statystki //TODO
 			stats->q(*simTime, system->scheduler.clientsCount);
 			// odejmij 1 od liczby klientów w kolejce
-			std::cout << "Scheduler: "; system->scheduler.show();
 			System::Client client = *system->scheduler.pop();
+			switch (client.flow)
+			{
+			case System::FlowEnum::A:
+				stats->q(*simTime, system->scheduler.clientsCount_A + 1, System::FlowEnum::A); 
+				stats->d(*simTime - client.arrivalTime, System::FlowEnum::A); break;
+			case System::FlowEnum::B:
+				stats->q(*simTime, system->scheduler.clientsCount_B + 1, System::FlowEnum::B); 
+				stats->d(*simTime - client.arrivalTime, System::FlowEnum::B); break;
+			}
+			std::cout << "Scheduler: "; system->scheduler.show();
 			std::cout << "\nServerowi dal: " << client.flow << "\n";
 			// oblicz opóŸnienie klienta i zbierz statystki //dodaj jeden do licznika opóŸnieñ klientów //TODO
 			stats->d(*simTime - client.arrivalTime);
