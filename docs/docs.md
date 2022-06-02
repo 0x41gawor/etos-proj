@@ -257,7 +257,7 @@ Zakładamy, że wszystkie pakiety mają ten sam rozmiar.
 
 Co się zmienia względem starego systemu?
 
-- To, że pakiety przybywają teraz z dwóch niezależnych źródeł.
+- To, pakiety przybywają teraz z dwóch niezależnych źródeł.
 
 - To, że Queue zostaje zastąpione przez dwie kolejki i Scheduler.
 
@@ -389,4 +389,38 @@ Zmienne w klasie `Sim::Stats` zamienią się po prostu w tablice 3-elementowe.
 2 - strumień B
 
 Do liczenia sumy pozostaną metody, które są już zaimplementowane. Do liczenia strumienia powstanie metoda, która jako parametr przyjmuje `System::FlowEnum`.
+
+## 2.9 Gdzie się zmienia parametry wejściowe?
+
+#### 2.9.1 Jakie są w ogóle parametry wejściowe?
+
+Są dwa strumienie. Klienci z każdego strumienia pojawiają się w odstępach czasowych zgodnych  z rozkładem wykładniczym z wartością oczekiwaną( średnią) **mean**. Aby rozkład wykładniczy się "uaktywnił", czyli żeby wartość średnia była równa wartości oczekiwanej potrzebny jest odpowiednio długi **czas symulacji**. Czas potrzebny na obsługę pojedynczego klienta nie jest już dany rozkładem wykładniczym jak to było w M/M/1, lecz zależy od **rozmiaru klienta** oraz **przepustowości** na łączu **serwera**. W ramach jednego strumienia klienci posiadają ten sam *rozmiar*. Algorytm WRR opiera się na **wagach** przypisanych do strumienia.
+
+#### 2.9.2 Gdzie się je zmienia?
+
+Wartości **mean**, **rozmiar klienta** oraz **wagi** dla każdego strumienia zdefiniowane są w pliku `src/system/Flows.h`
+
+![](img/11.png)
+
+> Należy pamiętać, że to strumień A, ma być tym o większej wadze. Inaczej WRR nie zadziała poprawnie.
+
+**Przepustowość serwera** zdefiniowana jest w pliku `src/system/server.cpp`
+
+![](img/12.png)
+
+**Czas symulacji** określony jest w pliku `src/algorithm/init.h` jako czas wystąpienia zdarzenia typu `END`.
+
+![](img/13.png)
+
+#### 2.9.2 Gdzie są wyniki symulacji?
+
+Wszystkie ważne dla obserwacji wyniki wypisywane są przez `RaportGenerator` na koniec działania programu.
+
+![](img/14.png)
+
+Dodatkowo wypisywana jest liczba obsłużonych klientów z każdego strumienia oraz sumaryczna, aby można było sobie policzyć czy średni czas oczekiwania w kolejce się zgadza.
+
+#### 2.9.3 Co można badać za pomocą symulatora?
+
+Zachowanie systemu opartego o WRR w stosunku do przyjętych parametrów wejściowych.
 
